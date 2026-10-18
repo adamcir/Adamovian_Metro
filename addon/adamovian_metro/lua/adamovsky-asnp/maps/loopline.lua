@@ -1,108 +1,33 @@
 local ASNP = AdamovskyASNP
 
+function ASNP.IsLooplineMap()
+    local map = string.lower(game.GetMap() or "")
+    return string.find(map, "gm_mus_loop", 1, true) ~= nil
+end
+
 function ASNP.BuildLoopline()
-    local station = ASNP.GetStationName
+    local names = ASNP.GetStationName
+    local ids = {651,652,653,654,655,656}
+    local line = {Name = "Loop Line", Loop = true, LED = {5,10,5,5,5}}
 
-    return {
-        {
-            Name = "Loop Line",
-            Loop = true,
-
-            {
-                651,
-                station(651),
-                station(651),
-
-                arr = {
-                    {"next_651"},
-                    {"next_651"}
-                },
-
-                dep = {
-                    {"doors_closing", "next_652"},
-                    {"doors_closing", "next_656"}
-                }
+    for index, id in ipairs(ids) do
+        local prev = ids[(index - 2) % #ids + 1]
+        local nextID = ids[index % #ids + 1]
+        line[index] = {
+            id, names(id), names(id),
+            arr = {
+                {"arr_" .. id},
+                {"arr_" .. id}
             },
-
-            {
-                652,
-                station(652),
-                station(652),
-
-                arr = {
-                    {"next_652"},
-                    {"next_652"}
-                },
-
-                dep = {
-                    {"doors_closing", "next_653"},
-                    {"doors_closing", "next_651"}
-                }
+            dep = {
+                {"doors_closing", "next_" .. nextID},
+                {"doors_closing", "next_" .. prev}
             },
-
-            {
-                653,
-                station(653),
-                station(653),
-
-                arr = {
-                    {"next_653"},
-                    {"next_653"}
-                },
-
-                dep = {
-                    {"doors_closing", "next_654"},
-                    {"doors_closing", "next_652"}
-                }
-            },
-
-            {
-                654,
-                station(654),
-                station(654),
-
-                arr = {
-                    {"next_654"},
-                    {"next_654"}
-                },
-
-                dep = {
-                    {"doors_closing", "next_655"},
-                    {"doors_closing", "next_653"}
-                }
-            },
-
-            {
-                655,
-                station(655),
-                station(655),
-
-                arr = {
-                    {"next_655"},
-                    {"next_655"}
-                },
-
-                dep = {
-                    {"doors_closing", "next_656"},
-                    {"doors_closing", "next_654"}
-                }
-            },
-
-            {
-                656,
-                station(656),
-                station(656),
-
-                arr = {
-                    {"next_656"},
-                    {"next_656"}
-                },
-
-                dep = {
-                    {"doors_closing", "next_651"},
-                    {"doors_closing", "next_655"}
-                }
+            arrlast = {
+                {"arr_" .. id, "last"},
+                {"arr_" .. id, "last"}
             }
         }
-    }
+    end
+    return {line}
 end
