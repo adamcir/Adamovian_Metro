@@ -16,16 +16,16 @@ function ASNP.BuildLoopline()
         line[index] = {
             id, names(id), names(id),
             arr = {
-                {"arr_" .. id},
-                {"arr_" .. id}
+                {"arr", "station_" .. id},
+                {"arr", "station_" .. id}
             },
             dep = {
-                {"doors_closing", "next_" .. nextID},
-                {"doors_closing", "next_" .. prev}
+                {"doors_closing", "next", "station_" .. nextID},
+                {"doors_closing", "next", "station_" .. prev}
             },
             arrlast = {
-                {"arr_" .. id, "last"},
-                {"arr_" .. id, "last"}
+                {"arr", "station_" .. id, "last"},
+                {"arr", "station_" .. id, "last"}
             }
         }
     end
