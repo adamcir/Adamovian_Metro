@@ -53,34 +53,78 @@ timer.Create("AdamovskyASNP_EnsureRegistration", 1, 0, function()
     ASNP.Initialize()
 end)
 
+-- Some third-party train spawners use a fixed announcer list instead of
+-- reading Metrostroi.AnnouncementsASNP. Extend the list without replacing
+-- the train's spawner or touching its original options.
+function ASNP.PatchTrainSpawners()
+    if not CLIENT or not ASNP.RegisteredID then return 0, 0 end
+    local patched, supported = 0, 0
+    for class, stored in pairs(scripted_ents.GetList() or {}) do
+        if not string.StartWith(class, "gmod_subway_") then continue end
+        local train = stored.t
+        if not train or not istable(train.Spawner) then continue end
+        for _, setting in ipairs(train.Spawner) do
+            if setting[1] ~= "Announcer" or setting[3] ~= "List" then continue end
+            supported = supported + 1
+            -- Remember the original provider once per setting table. Some trains
+            -- rebuild their scripted entity definitions during addon reloads.
+            local original = setting.AdamovskyASNPOriginal
+            if original == nil then
+                original = setting[4]
+                if not istable(original) and not isfunction(original) then break end
+                setting.AdamovskyASNPOriginal = original
+                setting[4] = function(...)
+                    local result = isfunction(original) and original(...) or original
+                    if not istable(result) then result = {} end
+                    -- Never mutate shared fixed lists that belong to another addon.
+                    local options = table.Copy(result)
+                    local id = ASNP.RegisteredID
+                    if id then options[id] = ASNP.AnnouncerName end
+                    return options
+                end
+                patched = patched + 1
+            end
+        end
+    end
+    return patched, supported
+end
+
+if CLIENT then
+    timer.Create("AdamovskyASNP_SpawnerCompatibility", 2, 0, function()
+        ASNP.PatchTrainSpawners()
+    end)
+end
+
 -- Local client diagnostics, without sv_cheats or lua_run_cl.
 if CLIENT then
     concommand.Add("adamovsky_asnp_status", function()
+        ASNP.Initialize()
+        ASNP.PatchTrainSpawners()
         print("[Adamovsky ASNP] Version: " .. tostring(ASNP.Version))
         print("[Adamovsky ASNP] Map: " .. tostring(game.GetMap()))
         local tbl = Metrostroi and Metrostroi.AnnouncementsASNP
-        local found
-        for id, data in pairs(tbl or {}) do
-            if istable(data) and data.name == ASNP.AnnouncerName then
-                found = id
-                print("[Adamovsky ASNP] Client announcer ID: " .. tostring(id) ..
-                    ", asnp flag: " .. tostring(data.asnp))
+        local found = ASNP.RegisteredID
+        if not found or not tbl or not tbl[found] or tbl[found].name ~= ASNP.AnnouncerName then
+            found = nil
+            for id, data in pairs(tbl or {}) do
+                if istable(data) and data.name == ASNP.AnnouncerName then found = id break end
             end
         end
-        if not found then
-            print("[Adamovsky ASNP] ERROR: Missing from client announcer table")
-        end
-        for class, data in pairs(scripted_ents.GetList() or {}) do
-            if not string.find(class, "gmod_subway_81%-717") then continue end
-            local train = data.t
+        print("[Adamovsky ASNP] Client announcer ID: " .. tostring(found))
+        local total, ok = 0, 0
+        for class, stored in pairs(scripted_ents.GetList() or {}) do
+            if not string.StartWith(class, "gmod_subway_") then continue end
+            local train = stored.t
             if not train or not istable(train.Spawner) then continue end
             for _, setting in ipairs(train.Spawner) do
-                if setting[1] ~= "Announcer" then continue end
+                if setting[1] ~= "Announcer" or setting[3] ~= "List" then continue end
+                total = total + 1
                 local choices = isfunction(setting[4]) and setting[4]() or setting[4]
-                print("[Adamovsky ASNP] " .. class ..
-                    " spawnmenu includes announcer: " ..
-                    tostring(istable(choices) and found and choices[found] == ASNP.AnnouncerName))
+                local present = istable(choices) and found and choices[found] == ASNP.AnnouncerName or false
+                if present then ok = ok + 1 end
+                print("[Adamovsky ASNP] " .. class .. " spawnmenu includes announcer: " .. tostring(present))
             end
         end
+        print("[Adamovsky ASNP] Compatible spawner menus: " .. ok .. "/" .. total)
     end)
 end
