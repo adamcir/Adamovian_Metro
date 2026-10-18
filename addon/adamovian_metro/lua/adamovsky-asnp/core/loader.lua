@@ -52,3 +52,35 @@ timer.Create("AdamovskyASNP_EnsureRegistration", 1, 0, function()
     end
     ASNP.Initialize()
 end)
+
+-- Local client diagnostics, without sv_cheats or lua_run_cl.
+if CLIENT then
+    concommand.Add("adamovsky_asnp_status", function()
+        print("[Adamovsky ASNP] Version: " .. tostring(ASNP.Version))
+        print("[Adamovsky ASNP] Map: " .. tostring(game.GetMap()))
+        local tbl = Metrostroi and Metrostroi.AnnouncementsASNP
+        local found
+        for id, data in pairs(tbl or {}) do
+            if istable(data) and data.name == ASNP.AnnouncerName then
+                found = id
+                print("[Adamovsky ASNP] Client announcer ID: " .. tostring(id) ..
+                    ", asnp flag: " .. tostring(data.asnp))
+            end
+        end
+        if not found then
+            print("[Adamovsky ASNP] ERROR: Missing from client announcer table")
+        end
+        for class, data in pairs(scripted_ents.GetList() or {}) do
+            if not string.find(class, "gmod_subway_81%-717") then continue end
+            local train = data.t
+            if not train or not istable(train.Spawner) then continue end
+            for _, setting in ipairs(train.Spawner) do
+                if setting[1] ~= "Announcer" then continue end
+                local choices = isfunction(setting[4]) and setting[4]() or setting[4]
+                print("[Adamovsky ASNP] " .. class ..
+                    " spawnmenu includes announcer: " ..
+                    tostring(istable(choices) and found and choices[found] == ASNP.AnnouncerName))
+            end
+        end
+    end)
+end

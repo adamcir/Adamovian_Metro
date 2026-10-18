@@ -21,7 +21,9 @@ for id = 651, 656 do
 end
 
 function ASNP.BuildSounds()
-    local sounds = {asnp = true}
+    -- Keep the announcer available to both ASNP and legacy announcer spawners.
+    -- Several 81-717/81-718 variants explicitly hide entries with asnp=true.
+    local sounds = {}
     for key, def in pairs(ASNP.SoundDefinitions) do
         local own = "adamovsky_asnp/" .. def[1]
         local path = file.Exists("sound/" .. own, "GAME") and own or def[3]
