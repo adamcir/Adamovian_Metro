@@ -1,7 +1,7 @@
 local ASNP = AdamovskyASNP
 
 -- Common phrases are shared across all maps. Map folders contain ONLY
--- station-name recordings (e.g. loopline/651.wav).
+-- station-name recordings (e.g. mus/loopline/651.wav).
 -- Fallback durations; real WAV lengths are calculated from RIFF headers at registration.
 ASNP.SoundDefinitions = {
     click1 = {"common/click1.wav", 0.5, "subway_announcers/asnp/boiko_new/click1.mp3"},
@@ -11,12 +11,13 @@ ASNP.SoundDefinitions = {
     doors_closing = {"common/doors_closing.wav", 3.782542},
     last = {"common/last.wav", 4.425625},
     arr = {"common/arr.wav", 3.0},
+    gong_1 = {"common/gong_1.wav", 2.5},
     next = {"common/next.wav", 4.0}
 }
 
 for id = 651, 656 do
     ASNP.SoundDefinitions["station_" .. id] = {
-        "loopline/" .. id .. ".wav", 3.0
+        "mus/loopline/" .. id .. ".wav", 3.0
     }
 end
 
