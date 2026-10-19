@@ -1,7 +1,7 @@
 local ASNP = AdamovskyASNP
 
--- Editable station names. These are placeholders pending the approved
--- Adamovian dictionary; do not mistake transliterations for translations.
+-- Station proper names are preserved until official Adamovian names are
+-- approved. They are not treated as Russian words to transliterate.
 ASNP.Language = ASNP.Language or {}
 ASNP.Language.Stations = {
     [651] = "Pervoaprelskaya",
@@ -12,93 +12,76 @@ ASNP.Language.Stations = {
     [656] = "Pionerskaya"
 }
 
--- Exact display strings as emitted by Metrostroi 81_71_ASNP.
--- Replace values with confirmed Adamovian equivalents. The keys must
--- remain unchanged. Keeping a fallback avoids broken menus.
+-- Adamovsky is its own language. These display terms follow the vocabulary
+-- in Adamovsky jazik 1.7 and the proposed ASNP glossary, not Russian phonetics.
+-- Keys must match Metrostroi's native display strings exactly.
 ASNP.Language.Display = {
-    ["Map not supported"] = "Mapa nepodporovana",
-    ["Карта не поддерживается"] = "Mapa nepodporovana",
-    ["Нажмите \"MENU\""] = "Stiskni MENU",
-    ["для начала настройки"] = "Pro nastaveni",
-    ["Client error"] = "Chyba klienta",
-    ["No announcer at client"] = "Informator nenalezen",
-    ["No line at client"] = "Linka nenalezena",
-    ["Выбор N маршрута"] = "Vyber cislo trasy",
-    ["Выбор линии (кол)"] = "Vyber okruzni linky",
-    ["Выбор линии   -"] = "Vyber linky",
-    ["Нет названия"] = "Bez nazvu",
-    ["Выбор пути"] = "Vyber koleje",
-    ["Текущая станция   -"] = "Aktualni stanice",
-    ["Выбор ст. оборота -"] = "Vyber konecne",
-    ["Кольцевой"] = "Okruzni",
-    ["Выбор приб / отпр"] = "Prijezd / odjezd",
-    ["Отпр."] = "Odj.",
-    ["Приб."] = "Prij.",
-    ["ПЕРЕД ОТПРАВЛЕНИЕМ"] = "PRED ODJEZDEM",
-    ["НАЖМИ КНОПКУ   ОБЪЯВИТЬ"] = "STISKNI HLASENI",
-    ["<<<  ИДЕТ ОБЪЯВЛЕНИЕ >>>"] = "<<< PROBIHA HLASENI >>>",
-    ["Бл.Л"] = "Bl.L",
-    ["Бл.П"] = "Bl.P"
-}
-
--- ASNP variants also use these labels (some are not identical to stock strings).
--- Keep each row within the 24-character display.
-local extra = {
-    ["Номер маршрута:"] = "Cislo trasy:",
-    ["Номер маршрута"] = "Cislo trasy",
+    ["Map not supported"] = "Mapa neznama",
+    ["Карта не поддерживается"] = "Mapa neznama",
+    ["Нажмите \"MENU\""] = "Natisni MENU",
+    ["для начала настройки"] = "Pusk nastavenja",
+    ["Client error"] = "Problem klienta",
+    ["No announcer at client"] = "Informator ne jest",
+    ["No line at client"] = "Linija ne jest",
+    ["Выбор N маршрута"] = "Vybor čisła trasy",
+    ["Выбор линии (кол)"] = "Vybor liniji okružne",
+    ["Выбор линии   -"] = "Vybor liniji",
+    ["Нет названия"] = "Bez nazva",
+    ["Выбор пути"] = "Vybor koleji",
+    ["Текущая станция   -"] = "Stanica teraz",
+    ["Выбор ст. оборота -"] = "Vybor končeca",
+    ["Кольцевой"] = "Okružny",
+    ["Выбор приб / отпр"] = "Prijazd / odjazd",
+    ["Отпр."] = "Odjazd",
+    ["Приб."] = "Prijazd",
+    ["ПЕРЕД ОТПРАВЛЕНИЕМ"] = "PRED OD JAZDOM",
+    ["НАЖМИ КНОПКУ   ОБЪЯВИТЬ"] = "NATISNI OBVESTENJE",
+    ["<<<  ИДЕТ ОБЪЯВЛЕНИЕ >>>"] = "<<< OBVESTENJE >>>",
+    ["Бл.Л"] = "Bl. L",
+    ["Бл.П"] = "Bl. P",
+    -- Additional labels in patched train ASNP variants.
+    ["Номер маршрута:"] = "Čisło trasy:",
+    ["Номер маршрута"] = "Čisło trasy",
     ["Маршрут"] = "Trasa",
-    ["Нажмите \"MENU\""] = "Stiskni MENU",
-    ["нажмите \"MENU\""] = "Stiskni MENU",
-    ["нажмите \"+\" или \"-\""] = "Stiskni + nebo -",
-    ["нажмите + или -"] = "Stiskni + nebo -",
-    ["Нажмите + или -"] = "Stiskni + nebo -",
-    ["Путь"] = "Kolej",
-    ["Путь:"] = "Kolej:",
-    ["Конечная станция"] = "Konecna stanice",
-    ["Проверьте данные"] = "Zkontroluj udaje",
-    ["Кольцевой"] = "Okruh",
-    ["Нажмите"] = "Stiskni",
-    ["нажмите"] = "stiskni",
-    ["для начала настройки"] = "Pro nastaveni",
-    ["Выбор"] = "Vyber",
-    ["станция"] = "stanice",
-    ["Станция"] = "Stanice",
-    ["маршрута"] = "trasy",
-    ["маршрут"] = "trasa",
-    ["начала"] = "zacatku",
-    ["настройки"] = "nastaveni",
-    ["пути"] = "koleje",
-    ["Меню"] = "Menu",
-    ["МЕНЮ"] = "MENU",
-    ["Объявить"] = "Hlaseni",
-    ["ОБЪЯВИТЬ"] = "HLASENI"
+    ["нажмите \"MENU\""] = "Natisni MENU",
+    ["нажмите \"+\" или \"-\""] = "Vybor + ili -",
+    ["нажмите + или -"] = "Vybor + ili -",
+    ["Нажмите + или -"] = "Vybor + ili -",
+    ["Путь"] = "Koleja",
+    ["Путь:"] = "Koleja:",
+    ["Конечная станция"] = "Stanica konečna",
+    ["Проверьте данные"] = "Kontrola danych",
+    ["От:"] = "Od:",
+    ["До:"] = "Do:",
+    ["\"+-\" выбор   \"MENU\" ввод"] = "+/- Vybor MENU potvrdi"
 }
-for original, replacement in pairs(extra) do
-    ASNP.Language.Display[original] = replacement
-end
 
 function ASNP.Translate(value)
-    if type(value) ~= "string" then return value end
-    local exact = ASNP.Language.Display[value]
-    if exact then return exact end
-    -- Other Metrostroi builds combine labels dynamically.
-    -- Replace known fragments without modifying other train announcers.
-    local result = value
+    if not isstring(value) then return value end
+    local direct = ASNP.Language.Display[value]
+    if direct then return direct end
+    -- Do not fabricate a 'translation' by transliterating Russian letters.
+    -- Replace only known phrases, longest first, preserving numbers and names.
+    local text = value
+    local matches = {}
     for from, to in pairs(ASNP.Language.Display) do
-        if string.find(result, from, 1, true) then
-            result = string.gsub(result, string.PatternSafe(from), function() return to end)
+        matches[#matches + 1] = {from, to}
+    end
+    table.sort(matches, function(a,b) return #a[1] > #b[1] end)
+    for _, pair in ipairs(matches) do
+        text = string.Replace(text, pair[1], pair[2])
+    end
+    -- Never show an unhandled Russian phrase in the Adamovsky interface.
+    -- Report the missing translation in console for later dictionary review.
+    if string.find(text, "[\208-\211][\128-\191]") then
+        if not ASNP.UnknownDisplayText then ASNP.UnknownDisplayText = {} end
+        if not ASNP.UnknownDisplayText[value] then
+            ASNP.UnknownDisplayText[value] = true
+            print("[Adamovsky ASNP] Missing Adamovsky translation: " .. value)
         end
+        return "Słovo neznamo"
     end
-    -- Do not leave untranslated Cyrillic on the Adamovsky display.
-    -- GMod supports utf8.codes, but not utf8.sub on every build.
-    local upper = {"А","Б","В","Г","Д","Е","Ё","Ж","З","И","Й","К","Л","М","Н","О","П","Р","С","Т","У","Ф","Х","Ц","Ч","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я"}
-    local lower = {"а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"}
-    local trans = {"A","B","V","G","D","E","Jo","Zh","Z","I","J","K","L","M","N","O","P","R","S","T","U","F","H","C","Ch","Sh","Shch","","Y","","E","Ju","Ja"}
-    for i = 1, #upper do
-        result = string.Replace(result, upper[i], trans[i])
-        result = string.Replace(result, lower[i], string.lower(trans[i]))
-    end
-    return result
+    return text
 end
 
 function ASNP.GetStationName(id)
