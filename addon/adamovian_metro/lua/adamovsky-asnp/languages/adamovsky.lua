@@ -41,9 +41,55 @@ ASNP.Language.Display = {
     ["Бл.П"] = "Bl.P"
 }
 
+-- ASNP variants also use these labels (some are not identical to stock strings).
+-- Keep each row within the 24-character display.
+local extra = {
+    ["Номер маршрута:"] = "Cislo trasy:",
+    ["Номер маршрута"] = "Cislo trasy",
+    ["Маршрут"] = "Trasa",
+    ["Нажмите \"MENU\""] = "Stiskni MENU",
+    ["нажмите \"MENU\""] = "Stiskni MENU",
+    ["нажмите \"+\" или \"-\""] = "Stiskni + nebo -",
+    ["нажмите + или -"] = "Stiskni + nebo -",
+    ["Нажмите + или -"] = "Stiskni + nebo -",
+    ["Путь"] = "Kolej",
+    ["Путь:"] = "Kolej:",
+    ["Конечная станция"] = "Konecna stanice",
+    ["Проверьте данные"] = "Zkontroluj udaje",
+    ["Кольцевой"] = "Okruh",
+    ["Нажмите"] = "Stiskni",
+    ["нажмите"] = "stiskni",
+    ["для начала настройки"] = "Pro nastaveni",
+    ["Выбор"] = "Vyber",
+    ["станция"] = "stanice",
+    ["Станция"] = "Stanice",
+    ["маршрута"] = "trasy",
+    ["маршрут"] = "trasa",
+    ["начала"] = "zacatku",
+    ["настройки"] = "nastaveni",
+    ["пути"] = "koleje",
+    ["Меню"] = "Menu",
+    ["МЕНЮ"] = "MENU",
+    ["Объявить"] = "Hlaseni",
+    ["ОБЪЯВИТЬ"] = "HLASENI"
+}
+for original, replacement in pairs(extra) do
+    ASNP.Language.Display[original] = replacement
+end
+
 function ASNP.Translate(value)
     if type(value) ~= "string" then return value end
-    return ASNP.Language.Display[value] or value
+    local exact = ASNP.Language.Display[value]
+    if exact then return exact end
+    -- Other Metrostroi builds combine labels dynamically.
+    -- Replace known fragments without modifying other train announcers.
+    local result = value
+    for from, to in pairs(ASNP.Language.Display) do
+        if string.find(result, from, 1, true) then
+            result = string.gsub(result, string.PatternSafe(from), function() return to end)
+        end
+    end
+    return result
 end
 
 function ASNP.GetStationName(id)

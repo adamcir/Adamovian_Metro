@@ -4,9 +4,6 @@ local ASNP = AdamovskyASNP
 -- station-name recordings (e.g. mus/loopline/651.wav).
 -- Fallback durations; real WAV lengths are calculated from RIFF headers at registration.
 ASNP.SoundDefinitions = {
-    click1 = {"common/click1.wav", 0.5, "subway_announcers/asnp/boiko_new/click1.mp3"},
-    click2 = {"common/click2.wav", 0.3, "subway_announcers/asnp/boiko_new/click2.mp3"},
-    click3 = {"common/click3.wav", 0.3, "subway_announcers/asnp/boiko_new/click3.mp3"},
     announcer_ready = {"common/announcer_ready.wav", 3.295479},
     doors_closing = {"common/doors_closing.wav", 3.782542},
     last = {"common/last.wav", 4.425625},
