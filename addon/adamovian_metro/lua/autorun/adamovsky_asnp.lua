@@ -1,6 +1,6 @@
 -- Adamovian Metro ASNP entry point. Does not modify other train addons.
 AdamovskyASNP = AdamovskyASNP or {}
-AdamovskyASNP.Version = "0.1.7"
+AdamovskyASNP.Version = "0.1.8"
 
 local ROOT = "adamovsky-asnp/"
 local modules = {

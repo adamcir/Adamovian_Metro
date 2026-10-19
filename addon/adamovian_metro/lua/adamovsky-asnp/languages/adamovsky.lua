@@ -89,6 +89,15 @@ function ASNP.Translate(value)
             result = string.gsub(result, string.PatternSafe(from), function() return to end)
         end
     end
+    -- Do not leave untranslated Cyrillic on the Adamovsky display.
+    -- GMod supports utf8.codes, but not utf8.sub on every build.
+    local upper = {"А","Б","В","Г","Д","Е","Ё","Ж","З","И","Й","К","Л","М","Н","О","П","Р","С","Т","У","Ф","Х","Ц","Ч","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я"}
+    local lower = {"а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"}
+    local trans = {"A","B","V","G","D","E","Jo","Zh","Z","I","J","K","L","M","N","O","P","R","S","T","U","F","H","C","Ch","Sh","Shch","","Y","","E","Ju","Ja"}
+    for i = 1, #upper do
+        result = string.Replace(result, upper[i], trans[i])
+        result = string.Replace(result, lower[i], string.lower(trans[i]))
+    end
     return result
 end
 

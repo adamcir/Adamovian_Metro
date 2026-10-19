@@ -39,3 +39,25 @@ end
 timer.Create("AdamovskyASNP_Localization", 1, 0, function()
     ASNP.InstallLocalization()
 end)
+
+-- Boost only our voice recordings at playback time. No WAVs are modified.
+-- Original train audio, UI noises and other announcers remain untouched.
+local function InstallVolume()
+    local stored = scripted_ents.GetStored("gmod_subway_base")
+    local base = stored and stored.t
+    if not base or not isfunction(base.PlayOnceFromPos) or base.AdamovskyVolumeWrapped then return end
+    local original = base.PlayOnceFromPos
+    base.PlayOnceFromPos = function(self, soundID, soundPath, volume, ...)
+        if isstring(soundPath) and string.StartWith(soundPath, "adamovsky_asnp/") then
+            local multiplier = GetConVar("adamovsky_asnp_volume")
+            local gain = multiplier and multiplier:GetFloat() or 2
+            volume = math.Clamp((volume or 1) * gain, 0, 1)
+        end
+        return original(self, soundID, soundPath, volume, ...)
+    end
+    base.AdamovskyVolumeWrapped = true
+end
+
+CreateClientConVar("adamovsky_asnp_volume", "2", true, false,
+    "Adamovsky ASNP playback volume multiplier (1-4)", 1, 4)
+timer.Create("AdamovskyASNP_Volume", 1, 0, InstallVolume)

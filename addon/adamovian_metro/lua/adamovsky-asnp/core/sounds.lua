@@ -58,7 +58,9 @@ end
 function ASNP.BuildSounds()
     -- Keep the announcer available to both ASNP and legacy announcer spawners.
     -- Several 81-717/81-718 variants explicitly hide entries with asnp=true.
-    local sounds = {}
+    -- Stock ASNP still queues click1/click2 even when our audio has no clicks.
+    -- Numeric entries mean silent delays instead of nonexistent sound files.
+    local sounds = {click1 = 0.01, click2 = 0.01, click3 = 0.01}
     for key, def in pairs(ASNP.SoundDefinitions) do
         local own = "adamovsky_asnp/" .. def[1]
         local path = file.Exists("sound/" .. own, "GAME") and own or def[3]
