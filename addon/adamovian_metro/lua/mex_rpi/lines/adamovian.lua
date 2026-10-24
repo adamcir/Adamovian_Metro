@@ -8,5 +8,5 @@ MEXRPI.RegisterPack("adamovian_loopline_rpi", {
 
 MEXRPI.RegisterPack("adamovian_suburb_construct_rpi", {
     name = "Adamovsky RPI",
-    sourceASNP = "adamovian_suburb_construct"
+    sourceASNP = "adamovian_suburb_construct",\n    -- Keep the whole circuit, including Depo 101, as regular stops.\n    loop = true
 })

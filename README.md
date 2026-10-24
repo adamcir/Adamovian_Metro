@@ -17,7 +17,7 @@ sound/adamovsky_announcer/
   suburb/
 ```
 
-ASNP and RPI both use these same WAV files; do not install or retain an older `sound/adamovsky_asnp/` copy.
+The 16 mono PCM 16-bit 44.1 kHz WAVs have been digitally boosted by approximately **+4.2 to +5.1 dB RMS** using a soft-peak limiter (avoids hard clipping). ASNP and RPI both use the boosted recordings. Do not repeatedly reapply gain to these files. Do not install or retain an older `sound/adamovsky_asnp/` copy.
 
 ## Announcer definitions
 
@@ -33,9 +33,9 @@ MEX discovers these automatically via its `MEXASNP.RegisterPack()` and `MEXRPI.R
 | Map | Stations | Route |
 | --- | --- | --- |
 | `gm_mus_loopline_*` | 651, 652, 653, 654, 655, 656 | Loop Line |
-| `gm_suburb_construct*` | 101, 102, 103, 104 | Suburb line A |
+| `gm_suburb_construct*` | 101 (Depo), 102 (Centrum), 103 (Prumyslova), 104 (Luka) | Suburb line A (circular) |
 
-**ASNP:** Select *Adamovsky ASNP* from the supported train's announcer list.
+**Suburb circuit:** Depo is a regular passenger station, not a non-passenger depot or a forced terminus. Both ASNP and RPI loop 101 → 102 → 103 → 104 → 101, including arrival/departure announcements at Depo. The same circuit works in reverse.\n\n**ASNP:** Select *Adamovsky ASNP* from the supported train's announcer list.
 
 **RPI/RRI:** Use an RRI-equipped train and enable its existing RRI option. MEX loads the matching Adamovian cassette, including directional departure, arrival and terminal announcements. Stock Metrostroi supports only one RRI cassette configuration per map, so a custom RPI pack replaces the map's default RRI audio, not the selectable ASNP entries.
 
