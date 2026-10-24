@@ -35,7 +35,7 @@ MEX discovers these automatically via its `MEXASNP.RegisterPack()` and `MEXRPI.R
 | `gm_mus_loopline_*` | 651, 652, 653, 654, 655, 656 | Loop Line |
 | `gm_suburb_construct*` | 101 (Depo), 102 (Centrum), 103 (Prumyslova), 104 (Luka) | Suburb line A (circular) |
 
-**Suburb circuit:** Depo is a regular passenger station, not a non-passenger depot or a forced terminus. Both ASNP and RPI loop 101 → 102 → 103 → 104 → 101, including arrival/departure announcements at Depo. The same circuit works in reverse.\n\n**ASNP:** Select *Adamovsky ASNP* from the supported train's announcer list.
+**Suburb circuit:** Depo is a regular passenger station, not a non-passenger depot or a forced terminus. Both ASNP and RPI loop 101 → 102 → 103 → 104 → 101, including arrival/departure announcements at Depo. The same circuit works in reverse. `continuousLoop = true` prevents Metrostroi from offering Luka (or any other stop) as an endpoint: its `arrlast` messages are disabled, and ASNP enforces a full circuit even if an existing train had a terminal selected. After updating, reload the map and respawn the train.\n\n**ASNP:** Select *Adamovsky ASNP* from the supported train's announcer list.
 
 **RPI/RRI:** Use an RRI-equipped train and enable its existing RRI option. MEX loads the matching Adamovian cassette, including directional departure, arrival and terminal announcements. Stock Metrostroi supports only one RRI cassette configuration per map, so a custom RPI pack replaces the map's default RRI audio, not the selectable ASNP entries.
 
