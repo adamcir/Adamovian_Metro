@@ -5,7 +5,7 @@ MEXASNP.RegisterPack("adamovian_loopline", {
     maps = {"gm_mus_loopline_"},
     lineName = "Loop Line",
     loop = true,
-    soundRoot = "adamovsky_asnp",
+    soundRoot = "adamovsky_announcer",
     sounds = {
         gong_1 = {"common/gong_1.wav", 2.5},
         arr = {"common/arr.wav", 3.0},
