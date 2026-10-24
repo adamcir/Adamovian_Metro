@@ -1,4 +1,12 @@
 MEXASNP.RegisterLanguage("ad", {
+    ["digit.next"] = "Cifra nasledna",
+    ["digit.previous"] = "Cifra predhodna",
+    ["action.plusminus"] = "Natisni + ili -",
+    ["action.back"] = "Navrat k",
+    ["route.label"] = "Trasa",
+    ["track.label"] = "Koleja",
+    ["ordinal.first"] = "prvi",
+    ["action.verify"] = "Kontrola danych",
     ["error.unknown"] = "Slovo neznamo",
     ["error.map"] = "Mapa neznama",
     ["action.menu"] = "Natisni MENU",
