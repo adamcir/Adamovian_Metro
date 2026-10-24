@@ -4,7 +4,9 @@ MEXASNP.RegisterPack("adamovian_suburb_construct", {
     language = "ad",
     maps = {"gm_suburb_construct"},
     lineName = "Suburb line A",
-    -- Closed passenger loop: Depo -> Centrum -> Prumyslova -> Luka -> Depo.\n    -- Depo (101) is a normal served station, NOT a special depot/terminal.\n    loop = true,
+    -- Closed passenger loop: Depo -> Centrum -> Prumyslova -> Luka -> Depo.
+    -- Depo (101) is a normal served station, NOT a special depot/terminal.
+    loop = true,
     soundRoot = "adamovsky_announcer",
     sounds = {
         gong_1 = {"common/gong_1.wav", 2.5},
