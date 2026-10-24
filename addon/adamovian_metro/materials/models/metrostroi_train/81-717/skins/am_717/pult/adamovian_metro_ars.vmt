@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/metrostroi_train/81-717/pult/p_ars"
+	"$basetexture" "models/metrostroi_train/81-717/skins/am_717/pult/adamovian_metro_ars"
 	"$model" "1"
 	"$alphatest" "1"
 	$allowAlphaToCoverage 1
