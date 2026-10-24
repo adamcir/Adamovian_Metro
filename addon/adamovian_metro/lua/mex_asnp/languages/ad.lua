@@ -1,4 +1,5 @@
 MEXASNP.RegisterLanguage("ad", {
+    ["error.unknown"] = "Slovo neznamo",
     ["error.map"] = "Mapa neznama",
     ["action.menu"] = "Natisni MENU",
     ["action.setup"] = "Pusk nastavenja",
