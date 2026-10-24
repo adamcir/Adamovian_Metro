@@ -41,7 +41,8 @@ ASNP.Language.Display = {
     ["Бл.П"] = "Bl. P",
     -- Additional labels in patched train ASNP variants.
     -- Labels seen on 81-717 MVM displays in different ASNP builds.
-    ["следующей инфе"] = "Stanica nasledna",
+    ["следующей инфе"] = "Info nasledna",
+    ["предыдущей инфе"] = "Info predhodna",
     ["нажмите \"МЕНЮ\""] = "Natisni MENU",
     ["нажмите \"МЕНЮ\" "] = "Natisni MENU",
     ["I (первый)"] = "I (prvi)",
