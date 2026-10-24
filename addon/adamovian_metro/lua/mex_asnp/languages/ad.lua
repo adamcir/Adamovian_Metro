@@ -1,4 +1,12 @@
 MEXASNP.RegisterLanguage("ad", {
+    -- Station and place names; Czech/Slovak/Polish-oriented Adamovian,
+    -- independent of Russian transliteration.
+    ["place.meadow"] = "Luka",
+    ["place.adamov_center"] = "Centrum Adamova",
+    ["place.industrial"] = "Prumyslova",
+    ["station.louka"] = "Luka",
+    ["station.centrum_adamova"] = "Centrum Adamova",
+    ["station.prumyslova"] = "Prumyslova",
     ["digit.next"] = "Cifra nasledna",
     ["digit.previous"] = "Cifra predhodna",
     ["action.plusminus"] = "Natisni + ili -",
