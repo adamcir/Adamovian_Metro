@@ -23,14 +23,14 @@ ASNP.Language.Display = {
     ["Client error"] = "Problem klienta",
     ["No announcer at client"] = "Informator ne jest",
     ["No line at client"] = "Linija ne jest",
-    ["Выбор N маршрута"] = "Vybor čisła trasy",
-    ["Выбор линии (кол)"] = "Vybor liniji okružne",
+    ["Выбор N маршрута"] = "Vybor cisla trasy",
+    ["Выбор линии (кол)"] = "Vybor liniji okruzne",
     ["Выбор линии   -"] = "Vybor liniji",
     ["Нет названия"] = "Bez nazva",
     ["Выбор пути"] = "Vybor koleji",
     ["Текущая станция   -"] = "Stanica teraz",
-    ["Выбор ст. оборота -"] = "Vybor končeca",
-    ["Кольцевой"] = "Okružny",
+    ["Выбор ст. оборота -"] = "Vybor konceca",
+    ["Кольцевой"] = "Okruzny",
     ["Выбор приб / отпр"] = "Prijazd / odjazd",
     ["Отпр."] = "Odjazd",
     ["Приб."] = "Prijazd",
@@ -40,8 +40,8 @@ ASNP.Language.Display = {
     ["Бл.Л"] = "Bl. L",
     ["Бл.П"] = "Bl. P",
     -- Additional labels in patched train ASNP variants.
-    ["Номер маршрута:"] = "Čisło trasy:",
-    ["Номер маршрута"] = "Čisło trasy",
+    ["Номер маршрута:"] = "Cislo trasy:",
+    ["Номер маршрута"] = "Cislo trasy",
     ["Маршрут"] = "Trasa",
     ["нажмите \"MENU\""] = "Natisni MENU",
     ["нажмите \"+\" или \"-\""] = "Vybor + ili -",
@@ -49,7 +49,7 @@ ASNP.Language.Display = {
     ["Нажмите + или -"] = "Vybor + ili -",
     ["Путь"] = "Koleja",
     ["Путь:"] = "Koleja:",
-    ["Конечная станция"] = "Stanica konečna",
+    ["Конечная станция"] = "Stanica konecna",
     ["Проверьте данные"] = "Kontrola danych",
     ["От:"] = "Od:",
     ["До:"] = "Do:",
@@ -79,7 +79,7 @@ function ASNP.Translate(value)
             ASNP.UnknownDisplayText[value] = true
             print("[Adamovsky ASNP] Missing Adamovsky translation: " .. value)
         end
-        return "Słovo neznamo"
+        return "Slovo neznamo"
     end
     return text
 end

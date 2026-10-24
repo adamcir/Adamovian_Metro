@@ -1,6 +1,6 @@
 -- Adamovian Metro ASNP entry point. Does not modify other train addons.
 AdamovskyASNP = AdamovskyASNP or {}
-AdamovskyASNP.Version = "0.2.0"
+AdamovskyASNP.Version = "0.2.1"
 
 local ROOT = "adamovsky-asnp/"
 local modules = {
@@ -9,8 +9,7 @@ local modules = {
     "maps/loopline.lua",
     "core/registry.lua",
     "core/loader.lua",
-    "compatibility/metrostroi_asnp.lua",
-    "compatibility/salon_displays.lua"
+    "compatibility/metrostroi_asnp.lua"
 }
 for _, module in ipairs(modules) do
     local path = ROOT .. module
