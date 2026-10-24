@@ -1,0 +1,49 @@
+name: Convert Suburb ASNP WAVs to mono
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/normalize-suburb-wav.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Convert Suburb station recordings to mono PCM
+        shell: bash
+        run: |
+          set -euo pipefail
+          prefix=addon/adamovian_metro/sound/adamovsky_asnp/suburb
+          for id in 101 102 103 104; do
+            file="$prefix/$id.wav"
+            test -f "$file"
+            temp="$prefix/$id.mono.wav"
+            ffmpeg -hide_banner -loglevel error -y -i "$file" -ac 1 -ar 44100 -c:a pcm_s16le "$temp"
+            mv "$temp" "$file"
+          done
+          python3 - <<'PY'
+          import wave
+          from pathlib import Path
+          for p in sorted(Path("addon/adamovian_metro/sound/adamovsky_asnp/suburb").glob("*.wav")):
+              with wave.open(str(p)) as w:
+                  assert (w.getnchannels(), w.getsampwidth(), w.getframerate()) == (1, 2, 44100), str(p)
+                  print(p.name, "mono 16-bit 44100 Hz")
+          PY
+      - name: Commit converted WAVs directly to main
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add addon/adamovian_metro/sound/adamovsky_asnp/suburb/*.wav
+          if ! git diff --cached --quiet; then
+            git commit -m "Convert Suburb ASNP station audio to mono PCM"
+            git push origin HEAD:main
+          fi
