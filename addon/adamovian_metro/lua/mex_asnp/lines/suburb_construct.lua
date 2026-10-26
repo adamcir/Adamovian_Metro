@@ -3,6 +3,10 @@ MEXASNP.RegisterPack("adamovian_suburb_construct", {
     name = "Adamovsky ASNP",
     language = "ad",
     maps = {"gm_suburb_construct"},
+    -- On maps without a matching line pack, offer this route explicitly as
+    -- MANUAL/off-map ASNP for testing or building a custom metro. The spawner
+    -- labels it as manual so real station metadata is never implied.
+    manualAnyMap = true,
     lineName = "Suburb line A",
     -- Closed passenger loop: Depo -> Centrum -> Prumyslova -> Luka -> Depo.
     -- Depo (101) is a normal served station, NOT a special depot/terminal.
