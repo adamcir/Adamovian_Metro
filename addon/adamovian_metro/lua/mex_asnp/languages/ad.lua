@@ -8,6 +8,7 @@ MEXASNP.RegisterLanguage("ad", {
     ["route.label"] = "Trasa",
     ["track.label"] = "Koleja",
     ["ordinal.first"] = "prvi",
+    ["ordinal.second"] = "drugi",
     ["action.verify"] = "Kontrola danych",
     ["error.unknown"] = "Slovo neznamo",
     ["error.map"] = "Mapa neznama",
